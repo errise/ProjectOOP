@@ -15,6 +15,11 @@ public class MainMenu {
      */
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
+        LinkedList<User> daftarUser = new LinkedList();
+        LinkedList<TokoBuku> daftarTokoBuku = new LinkedList();
+        String menu = " ";
+        
+        
     }
     
 }
