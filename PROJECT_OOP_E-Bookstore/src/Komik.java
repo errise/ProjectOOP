@@ -31,8 +31,15 @@ public class Komik extends Buku{
 
     @Override
     public void show() {
-        super.show(); //To change body of generated methods, choose Tools | Templates.
+        super.show(); 
         System.out.println("Volume  : "+this.volume);
+        System.out.println("Harga   : "+getHarga());
+        if (isStatus()) {
+            System.out.println("Status  : tersedia");
+            System.out.println("Harga   : Rp " + getHarga());
+        } else {
+            System.out.println("Status  : Tidak tersedia");
+        }
     }
     
 }

@@ -8,32 +8,32 @@
  *
  * @author Kevin
  */
-public class Majalah extends Buku {
+public class Kamus extends Buku {
 
-    private String edisi;
+    private String bahasa;
 
-    public Majalah() {
+    public Kamus() {
         super();
-        this.edisi = "Tidak ada";
+        this.bahasa = "Tidak ada";
     }
 
-    public Majalah(String idBuku, String judulBuku, String penulis, String penerbit, double harga, int stok, boolean status, String kategori, String edisi) {
+    public Kamus(String idBuku, String judulBuku, String penulis, String penerbit, double harga, int stok, boolean status, String kategori, String bahasa) {
         super(idBuku, judulBuku, penulis, penerbit, harga, stok, status, kategori);
-        this.edisi = edisi;
+        this.bahasa = bahasa;
     }
 
-    public String getEdisi() {
-        return edisi;
+    public String getBahasa() {
+        return bahasa;
     }
 
-    public void setEdisi(String edisi) {
-        this.edisi = edisi;
+    public void setBahasa(String bahasa) {
+        this.bahasa = bahasa;
     }
 
     @Override
     public void show() {
-        super.show(); //To change body of generated methods, choose Tools | Templates.
-        System.out.println("Edisi   : " + this.edisi);
+        super.show();
+        System.out.println("Bahasa  : " + this.bahasa);
         if (isStatus()) {
             System.out.println("Status  : tersedia");
             System.out.println("Harga   : Rp " + getHarga());
