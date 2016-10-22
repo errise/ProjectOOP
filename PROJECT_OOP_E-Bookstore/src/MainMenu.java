@@ -1,4 +1,5 @@
 
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -29,7 +30,7 @@ public class MainMenu {
         int tempIndex;//Untuk menyimpan indeks sementara dari user ataupun tokobuku ketika login
         do {
             System.out.println("\nE-Bookstore");
-            System.out.println("Main Menu:");
+            System.out.println("Home:");
             System.out.println("[1] Customer");
             System.out.println("[2] Book Store");
             System.out.println("[3] Administrator");
@@ -61,7 +62,8 @@ public class MainMenu {
                                     tempIndex = getAdminTokoBukuIndex(username, daftarTokoBuku);
                                     bookStoreId = daftarTokoBuku.get(tempIndex).getIdTokoBuku();
                                     do {
-                                        System.out.println("\nMenu:");
+                                        System.out.println("\nWelcome "+bookStoreId);
+                                        System.out.println("Main Menu:");
                                         System.out.println("[1]. Insert Book");
                                         System.out.println("[2]. Edit Book");
                                         System.out.println("[3]. Search Book");
@@ -120,7 +122,7 @@ public class MainMenu {
                                                         //memasukkan majalah baru ke dalam daftar buku yang dimiliki toko buku
                                                         daftarTokoBuku.get(tempIndex).addBuku(majalahBaru);
                                                         daftarTokoBuku.get(tempIndex).increaseBookIdNumbering();
-                                                        
+
                                                         break;
                                                     case "2":
                                                         System.out.println("\nComic");
@@ -294,36 +296,36 @@ public class MainMenu {
                                                     editedBook.setStatus(status);
                                                     if (editedBook instanceof Majalah) {
                                                         System.out.print("Edition     : ");
-                                                        String edition = s.next()+ s.nextLine();
-                                                        ((Majalah)editedBook).setEdisi(edition);
+                                                        String edition = s.next() + s.nextLine();
+                                                        ((Majalah) editedBook).setEdisi(edition);
                                                     } else if (editedBook instanceof Komik) {
                                                         System.out.print("Volume      : ");
-                                                        String volume = s.next()+ s.nextLine();
-                                                        ((Komik)editedBook).setVolume(volume);
+                                                        String volume = s.next() + s.nextLine();
+                                                        ((Komik) editedBook).setVolume(volume);
                                                     } else if (editedBook instanceof Novel) {
                                                         String isSeries = "";
                                                         do {
                                                             System.out.print("Part of a Series (Y/N): ");
-                                                            isSeries = s.next()+ s.nextLine();
+                                                            isSeries = s.next() + s.nextLine();
                                                         } while (!checkSeries(isSeries));
                                                         String seri = "Tidak ada";
                                                         if (checkSeries(isSeries)) {
                                                             System.out.print("Series      : ");
-                                                            seri = s.next()+ s.nextLine();
+                                                            seri = s.next() + s.nextLine();
                                                         }
                                                         System.out.print("Page        : ");
                                                         int tebalBuku = s.nextInt();
-                                                        ((Novel)editedBook).setBerseri(checkSeries(isSeries));
-                                                        ((Novel)editedBook).setSeri(seri);
-                                                        ((Novel)editedBook).setTebalBuku(tebalBuku);
+                                                        ((Novel) editedBook).setBerseri(checkSeries(isSeries));
+                                                        ((Novel) editedBook).setSeri(seri);
+                                                        ((Novel) editedBook).setTebalBuku(tebalBuku);
                                                     } else if (editedBook instanceof Kamus) {
                                                         System.out.print("Language    : ");
-                                                        String bahasa = s.next()+ s.nextLine();
-                                                        ((Kamus)editedBook).setBahasa(bahasa);
+                                                        String bahasa = s.next() + s.nextLine();
+                                                        ((Kamus) editedBook).setBahasa(bahasa);
                                                     } else if (editedBook instanceof BukuPelajaran) {
                                                         System.out.print("Level       : ");
-                                                        String level = s.next()+ s.nextLine();
-                                                        ((BukuPelajaran)editedBook).setTingkatPendidikan(level);
+                                                        String level = s.next() + s.nextLine();
+                                                        ((BukuPelajaran) editedBook).setTingkatPendidikan(level);
                                                     }
                                                     for (int i = 0; i < daftarBuku.size(); i++) {
                                                         if (daftarBuku.get(i).getIdBuku().equals(editedBook.getIdBuku())) {
@@ -336,12 +338,72 @@ public class MainMenu {
                                                 }
                                                 break;
                                             case "3":
+                                                System.out.println("\nSearch Book");
+                                                System.out.print("Title of the book you want to search : ");
+                                                title = s.next() + s.nextLine();
+                                                if (daftarTokoBuku.get(tempIndex).isBookExist(title)) {
+                                                    daftarTokoBuku.get(tempIndex).lihatDetailBuku(title);
+                                                } else {
+                                                    System.out.println("There's no book with title " + title);
+                                                }
                                                 break;
                                             case "4":
+                                                System.out.println("\nRemove Book");
+                                                LinkedList<Buku> daftarBuku = daftarTokoBuku.get(tempIndex).getDaftarBuku();
+                                                daftarTokoBuku.get(tempIndex).lihatKodeBuku();
+                                                System.out.print("\nTitle of the book you want remove : ");
+                                                title = s.next() + s.nextLine();
+                                                if (daftarTokoBuku.get(tempIndex).isBookExist(title)) {
+                                                    for (Buku daftarBuku1 : daftarBuku) {
+                                                        if (daftarBuku1.getJudulBuku().equalsIgnoreCase(title)) {
+                                                            daftarTokoBuku.get(tempIndex).hapusBuku(daftarBuku1);
+                                                        } else {
+                                                            System.out.println("Title you entered is wrong");
+                                                        }
+                                                    }
+                                                } else {
+                                                    System.out.println("There's no book with title " + title);
+                                                }
                                                 break;
                                             case "5":
+                                                System.out.println("\nIncrease Book Stock");
+                                                daftarBuku = daftarTokoBuku.get(tempIndex).getDaftarBuku();
+                                                daftarTokoBuku.get(tempIndex).lihatKodeBuku();
+                                                System.out.print("\nEnter book id : ");
+                                                String bookId = s.next() + s.nextLine();
+                                                System.out.print("Quantity        : ");
+                                                int quantity = s.nextInt();
+                                                for (Buku daftarBuku1 : daftarBuku) {
+                                                    if (daftarBuku1.getIdBuku().equalsIgnoreCase(bookId)) {
+                                                        if (quantity > 0) {
+                                                            daftarBuku1.setStok(daftarBuku1.getStok() + quantity);
+                                                        } else {
+                                                            System.out.println("The Quantity must more than 0");
+                                                        }
+                                                        break;
+                                                    }
+                                                }
+                                                daftarTokoBuku.get(tempIndex).setDaftarBuku(daftarBuku);
                                                 break;
                                             case "6":
+                                                System.out.println("\nDecrease Book Stock");
+                                                daftarBuku = daftarTokoBuku.get(tempIndex).getDaftarBuku();
+                                                daftarTokoBuku.get(tempIndex).lihatKodeBuku();
+                                                System.out.print("\nEnter book id : ");
+                                                bookId = s.next() + s.nextLine();
+                                                System.out.print("Quantity        : ");
+                                                quantity = s.nextInt();
+                                                for (Buku daftarBuku1 : daftarBuku) {
+                                                    if (daftarBuku1.getIdBuku().equalsIgnoreCase(bookId)) {
+                                                        if (quantity > 0 && daftarBuku1.getStok() > quantity) {
+                                                            daftarBuku1.setStok(daftarBuku1.getStok() - quantity);
+                                                        } else {
+                                                            System.out.println("The Quantity must more than 0 and less than current stok");
+                                                        }
+                                                        break;
+                                                    }
+                                                }
+                                                daftarTokoBuku.get(tempIndex).setDaftarBuku(daftarBuku);
                                                 break;
                                             case "7":
                                                 break;
@@ -440,21 +502,26 @@ public class MainMenu {
                                     System.out.println("Your password is " + forgotPassword(bookStoreId, username, 2, daftarUser, daftarTokoBuku));
                                 }
                                 break;
+                            case "4":
+                                break;
                             default:
                                 System.out.println("Wrong Input!");
                                 break;
                         }
                     } while (!("4").equals(menu));
+                    menu = " ";
                     break;
                 case "3":
 
+                    break;
+                case "4":
+                    System.out.println("Thank You");
                     break;
                 default:
                     System.out.println("Wrong Input!");
                     break;
             }
         } while (!("4").equals(menu));
-
     }
 
     static boolean cekIdAdminTokoBuku(String userName, String password, LinkedList<TokoBuku> daftarTokoBuku) {

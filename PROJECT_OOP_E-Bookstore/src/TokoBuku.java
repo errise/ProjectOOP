@@ -229,6 +229,49 @@ public class TokoBuku {
             }
         }
     }
+    
+    public void lihatKodeBuku(){
+        for (int i = 0; i < daftarBuku.size(); i++) {
+            System.out.println((i+1)+". ["+daftarBuku.get(i).getIdBuku()+"] "+daftarBuku.get(i).getJudulBuku());
+        }
+    }
+
+    public void lihatDetailBuku(String title) {
+        for (int i = 0; i < daftarBuku.size(); i++) {
+            if (daftarBuku.get(i).getJudulBuku().equalsIgnoreCase(title)) {
+                if (daftarBuku.get(i) instanceof Majalah) {
+                    ((Majalah) daftarBuku.get(i)).show();
+                } else if (daftarBuku.get(i) instanceof Komik) {
+                    ((Komik) daftarBuku.get(i)).show();
+                } else if (daftarBuku.get(i) instanceof Novel) {
+                    ((Novel) daftarBuku.get(i)).show();
+                } else if (daftarBuku.get(i) instanceof Kamus) {
+                    ((Kamus) daftarBuku.get(i)).show();
+                } else if (daftarBuku.get(i) instanceof BukuPelajaran) {
+                    ((BukuPelajaran) daftarBuku.get(i)).show();
+                }
+                System.out.println("");
+                break;
+            }
+        }
+    }
+
+    public void lihatDetailBuku() {
+        for (int i = 0; i < daftarBuku.size(); i++) {
+            if (daftarBuku.get(i) instanceof Majalah) {
+                ((Majalah) daftarBuku.get(i)).show();
+            } else if (daftarBuku.get(i) instanceof Komik) {
+                ((Komik) daftarBuku.get(i)).show();
+            } else if (daftarBuku.get(i) instanceof Novel) {
+                ((Novel) daftarBuku.get(i)).show();
+            } else if (daftarBuku.get(i) instanceof Kamus) {
+                ((Kamus) daftarBuku.get(i)).show();
+            } else if (daftarBuku.get(i) instanceof BukuPelajaran) {
+                ((BukuPelajaran) daftarBuku.get(i)).show();
+            }
+            System.out.println("");
+        }
+    }
 
     public void lihatDaftarPesanan() {
         daftarPesanan.stream().forEach((daftarPesanan1) -> {
